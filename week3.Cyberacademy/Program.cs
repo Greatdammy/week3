@@ -1,53 +1,84 @@
 ﻿using System;
 
-namespace week3.Cyberacademy
+namespace LearnCSharp.Cmd
 {
-    public delegate int MyDelegate(int i);
+    public delegate W Arithmetic<W, Y, Z>(Y first, Z second);
+    public delegate void ArithmeticDelegate();
+
+    public delegate Shape DrawDelegate();
+    public delegate void ShapeDelegate(int i);
+
+    public class Shape
+    {
+
+    }
+
+    public class Triangle : Shape
+    {
+
+    }
     public class Program
     {
+
+        static Triangle DrawTriangle()
+        {
+            return new Triangle();
+        }
+
         static void Main()
         {
+            ShapeDelegate shapeDelegate = i =>
+            {
+                Console.WriteLine(i);
+            };
 
-            MyDelegate del = MyMethod;
-            del += MyMethod2;
-            del(89);
-            //People p = new People();
+            ArithmeticDelegate arithmeticDelegate = () =>
+            {
+            };
 
-            //People.Person person = p[1];
-            //Console.WriteLine(person.Name);
+            DrawDelegate drawDelegate = DrawTriangle;
+
+            Arithmetic<int, int, int> del = Add;
+            del += Minus;
+
+            //Annonymous delegate method
+            del += delegate (int first, int second)
+            {
+                return first + second;
+            };
+
+            del += delegate (int first, int second)
+            {
+                return first + second;
+            };
+
+            //Lambda Expression
+            del += (first, second) =>
+            {
+                return second + first;
+            };
+
+            del += (first, second) => second + first;
+
+
+            var result = del(39, 8);
+            Console.WriteLine(result);
+
+            //Console.WriteLine("+++++++++++++++++");
+            //del -= MyMethod2;
+            //del(80);
+
         }
-        static void MyMethod(int i)
+
+        static int Add(int a, int b)
         {
-            Console.WriteLine("MyMethod {0}", i);
+            return a + b;
         }
-        static void MyMethod2(int i)
+
+        static int Minus(int x, int y)
         {
-            Console.WriteLine("MyMethod2 {0}", i);
+            return x - y;
         }
+
     }
 }
-
-//public class People
-//{
-//    public class Person
-//    {
-//        public string Name { get; set; }
-//}
-//private readonly Person[] names =
-//    {
-//        new Person{ Name = "Bill gate"},
-//        new Person{ Name = "Prolifik lexzy" },
-//        new Person{ Name = "Scott Allen"},
-//        new Person{ Name = " Damilare Obafemi"}
-//    };
-
-//    public Person this[int position]
-//    {
-//        get
-//        {
-//            return names[position];
-//        }
-//    }
-//}
-
-
