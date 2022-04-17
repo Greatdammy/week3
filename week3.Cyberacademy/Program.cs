@@ -1,84 +1,70 @@
 ﻿using System;
 
-namespace LearnCSharp.Cmd
+namespace week3.Cyberacademy
 {
-    public delegate W Arithmetic<W, Y, Z>(Y first, Z second);
-    public delegate void ArithmeticDelegate();
+    public delegate int ArithmeticOperationDelegate(int i, int j);
 
-    public delegate Shape DrawDelegate();
-    public delegate void ShapeDelegate(int i);
-
-    public class Shape
-    {
-
-    }
-
-    public class Triangle : Shape
-    {
-
-    }
     public class Program
     {
-
-        static Triangle DrawTriangle()
-        {
-            return new Triangle();
-        }
+        public static int i { get; private set; }
 
         static void Main()
         {
-            ShapeDelegate shapeDelegate = i =>
+            ArithmeticOperationDelegate[] array = new ArithmeticOperationDelegate[3];
+
+            for (int i = 0; i < array.Length; i++)
             {
-                Console.WriteLine(i);
-            };
+                if (i == 0)
+                {
+                    array[i] = ArithmeticOperation.Add;
+                    
 
-            ArithmeticDelegate arithmeticDelegate = () =>
-            {
-            };
+                }
 
-            DrawDelegate drawDelegate = DrawTriangle;
+                if (i == 1)
+                {
+                    array[i] = ArithmeticOperation.Minus;
+                }
 
-            Arithmetic<int, int, int> del = Add;
-            del += Minus;
+                if (i == 2)
+                {
 
-            //Annonymous delegate method
-            del += delegate (int first, int second)
-            {
-                return first + second;
-            };
+                    array[i] = ArithmeticOperation.Multiply;
+                }
 
-            del += delegate (int first, int second)
-            {
-                return first + second;
-            };
+                var del = array[i];
+                Console.WriteLine(del(6, 5));
+            }
+                
+                 
 
-            //Lambda Expression
-            del += (first, second) =>
-            {
-                return second + first;
-            };
-
-            del += (first, second) => second + first;
-
-
-            var result = del(39, 8);
-            Console.WriteLine(result);
-
-            //Console.WriteLine("+++++++++++++++++");
-            //del -= MyMethod2;
-            //del(80);
 
         }
-
-        static int Add(int a, int b)
+        public class ArithmeticOperation 
         {
-            return a + b;
+
+           public static int Add(int i, int j)
+            {
+                return i + j;
+            }
+
+           public static int Minus(int i, int j)
+            {
+                return i - j;
+            }
+
+          public  static int Multiply(int i, int j)
+            {
+                return i * j;
+            }
+
         }
 
-        static int Minus(int x, int y)
-        {
-            return x - y;
-        }
 
     }
+
+
+
 }
+
+
